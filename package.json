@@ -1,0 +1,40 @@
+{
+  "name": "@node-boot/core",
+  "version": "0.2.3",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "ta": "tsc && npm config set scope node-mvc-decorator && npm publish --access public",
+    "start": "tsc && ts-node ./src/demo.ts"
+  },
+  "peerDependencies": {
+    "reflect-metadata": "^0.1.13",
+    "ts-decorators-utils": "~0.0.4",
+    "yamljs": "^0.3.0"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.13",
+    "ts-decorators-utils": "~0.1.2",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.6.2",
+    "@types/yamljs": "^0.2.30",
+    "codelyzer": "^5.1.0",
+    "tslint": "~5.9.1",
+    "ts-node": "~4.1.0",
+    "typescript": "~2.5.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/node-mvc/core.git"
+  },
+  "keywords": [
+    "typescript"
+  ],
+  "author": "wangliang",
+  "bugs": {
+    "url": "https://github.com/node-mvc/core/issues"
+  },
+  "homepage": "https://github.com/node-mvc-decorator/core#readme"
+}
