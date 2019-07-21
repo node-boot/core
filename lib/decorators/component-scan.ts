@@ -1,4 +1,4 @@
-import {Constructor} from "../../types/constructor";
+import {Constructor} from "../types/constructor";
 import {DecoratorOptionNullableFactory} from "ts-decorators-utils";
 
 const COMPONENT_SCAN_METADATA_KEY = Symbol('ComponentScan');

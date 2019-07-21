@@ -3,13 +3,24 @@ import * as fs from 'fs';
 import * as yml from 'yamljs';
 import {EventEmitter} from 'events';
 import {ServiceParser} from "./parser";
+import {Constructor} from "./types/constructor";
+import {getComponentScanValue} from "./decorators/component-scan";
 
 
 let fileDirPath = '';
 
 const optionsEmitter = new EventEmitter();
 
-function run(filePath?: string) {
+export class NodeApplication {
+    static run(type: Constructor<any>) {
+        let componentScanValue = getComponentScanValue(type);
+
+        componentScanValue.baseDirectories;
+    }
+}
+
+function run(type: Constructor) {
+    let filePath;
     let options;
     if (filePath) {
         let fileName;

@@ -4,7 +4,7 @@ import * as path from "path";
 
 optionsEmitter.on('loaded', options => {
 
-    componentScan('test/test2');
+    componentScan();
     // TODO
     // fs.readdirSync(dirPath)
     //     .filter(fileName => fileName.endsWith('.js'))
