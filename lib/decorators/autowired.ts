@@ -1,28 +1,37 @@
-import {propertyDecoratorFactoryBuilder, DecoratorFactory} from 'ts-decorators-utils';
+import {DecoratorFactoryBuilder} from "ts-decorators-utils/lib/decorator-factory-builder";
 
 const AUTOWIRED_METADA_KEY = Symbol('Autowired');
 
-type AutowiredParam = {
+type AutowiredOption = {
     required?: boolean;
-    type: any;
-}
+    type: Function;
+} | Function;
 
 type AutowiredValueItem = {
     required: boolean;
-    type: any;
+    type: Function;
     propertyKey: string;
 }
 
-const Autowired = DecoratorFactory.createPropertyDecorator<AutowiredValueItem, AutowiredParam>(
-    AUTOWIRED_METADA_KEY, (option, target, propertyKey) => ({
-        required: option.required,
-        type: option.type,
-        propertyKey
-    })
+const Autowired = DecoratorFactoryBuilder.createPropertyDecoratorFactory<AutowiredOption, AutowiredValueItem>(
+    (option, target, propertyKey) => {
+        if (option instanceof Function) {
+            return {
+                type: option,
+                required: true,
+                propertyKey
+            };
+        }
+        return {
+            type: option.type,
+            required: option.required,
+            propertyKey
+        };
+    }, AUTOWIRED_METADA_KEY
 );
 
 function getAutowiredValue(target: any): AutowiredValueItem[] | null {
     return Reflect.getMetadata(AUTOWIRED_METADA_KEY, target.prototype);
 }
 
-export {AUTOWIRED_METADA_KEY, AutowiredParam, AutowiredValueItem, Autowired, getAutowiredValue};
+export {AUTOWIRED_METADA_KEY, AutowiredOption, AutowiredValueItem, Autowired, getAutowiredValue};

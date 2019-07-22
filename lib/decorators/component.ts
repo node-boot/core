@@ -8,14 +8,14 @@ type ComponentOption = {
     value: string;
 } | string;
 
-type ComponentValueItem = {
+type ComponentValue = {
     value: string;
     providers: Constructor[];
 }
 
 const componentTypes = [];
 
-const Component = DecoratorOptionNullableFactory.createClassDecorator<ComponentValueItem, ComponentOption>(
+const Component = DecoratorOptionNullableFactory.createClassDecorator<ComponentValue, ComponentOption>(
     COMPONENT_METADA_KEY, (option, target) => {
         if (componentTypes.includes(target)) {
             throw '相同的名字被定义';
@@ -41,7 +41,7 @@ const Component = DecoratorOptionNullableFactory.createClassDecorator<ComponentV
         };
     });
 
-function getComponentValue(target: any): ComponentValueItem[] | null {
+function getComponentValue(target: any): ComponentValue | null {
     return Reflect.getMetadata(COMPONENT_METADA_KEY, target.prototype);
 }
 
@@ -49,4 +49,4 @@ function getComponentTypes() {
     return [...componentTypes];
 }
 
-export {COMPONENT_METADA_KEY, ComponentOption, ComponentValueItem, Component, getComponentValue, getComponentTypes};
+export {COMPONENT_METADA_KEY, ComponentOption, ComponentValue, Component, getComponentValue, getComponentTypes};

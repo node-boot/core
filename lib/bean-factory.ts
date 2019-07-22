@@ -1,7 +1,7 @@
 ///<reference path="decorators/autowired.ts"/>
 import {Constructor} from "./types/constructor";
-import {getServiceValue, ServiceValue} from "./decorators";
 import {getAutowiredValue} from "./decorators/autowired";
+import {ComponentValue, getComponentValue} from "./decorators/component";
 
 export class BeanFactory {
 
@@ -18,13 +18,13 @@ export class BeanFactory {
             return this.beanMapByType.get(type);
         }
 
-        const serviceValue: ServiceValue = getServiceValue(type);
+        const componentValue: ComponentValue = getComponentValue(type);
 
-        if (this.beanMapByName.has(serviceValue.name)) {
-            return this.beanMapByName.get(serviceValue.name);
+        if (this.beanMapByName.has(componentValue.value)) {
+            return this.beanMapByName.get(componentValue.value);
         }
 
-        const args = serviceValue.providers.length ? serviceValue.providers.map(
+        const args = componentValue.providers.length ? componentValue.providers.map(
             provider => BeanFactory.create(provider)) : [];
         const result = new type(...args);
 
@@ -34,7 +34,7 @@ export class BeanFactory {
             autowiredValue.forEach(item => result[item.propertyKey] = BeanFactory.create(item.type));
         }
         this.beanMapByType.set(type, result);
-        this.beanMapByName.set(serviceValue.name, result);
+        this.beanMapByName.set(componentValue.value, result);
         return result;
     }
 }

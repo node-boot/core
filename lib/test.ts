@@ -1,16 +1,15 @@
-import {optionsEmitter} from "./bootstrap";
 import * as fs from 'fs';
 import * as path from "path";
 
-optionsEmitter.on('loaded', options => {
-
-    componentScan();
-    // TODO
-    // fs.readdirSync(dirPath)
-    //     .filter(fileName => fileName.endsWith('.js'))
-    //     .map(fileName => fileName.slice(0, -3)).forEach(name => )
-    // console.log(options);
-});
+// optionsEmitter.on('loaded', options => {
+//
+//     componentScan('test/test2');
+//     // TODO
+//     // fs.readdirSync(dirPath)
+//     //     .filter(fileName => fileName.endsWith('.js'))
+//     //     .map(fileName => fileName.slice(0, -3)).forEach(name => )
+//     // console.log(options);
+// });
 
 let mainFileName;
 function directoryScanForImportFile(scanDirPath: string) {
