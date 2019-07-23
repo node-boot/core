@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "reflect-metadata": "^0.1.13",
-    "ts-decorators-utils": "0.1.8",
+    "ts-decorators-utils": "0.1.11",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {

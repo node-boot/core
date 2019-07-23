@@ -20,7 +20,7 @@ export const NodeBootApplication = DecoratorOptionNullableFactory.createCustomCl
             }
         }
         ComponentScan(scanBaseDirectories)(target);
-        NodeBootConfiguration(target);
+        NodeBootConfiguration()(target);
     });
 
 

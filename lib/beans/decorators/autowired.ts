@@ -10,27 +10,27 @@ type AutowiredOption = {
 type AutowiredValueItem = {
     required: boolean;
     type: Function;
-    propertyKey: string;
+    propertyKey: string | symbol;
 }
 
 const Autowired = DecoratorFactoryBuilder.createPropertyDecoratorFactory<AutowiredOption, AutowiredValueItem>(
     (option, target, propertyKey) => {
-        if (option instanceof Function) {
+        if (typeof option === 'object') {
             return {
-                type: option,
-                required: true,
+                type: option.type,
+                required: option.required,
                 propertyKey
             };
         }
         return {
-            type: option.type,
-            required: option.required,
+            type: option,
+            required: true,
             propertyKey
         };
     }, AUTOWIRED_METADA_KEY
 );
 
-function getAutowiredValue(target: any): AutowiredValueItem[] | null {
+function getAutowiredValue(target: Function): AutowiredValueItem[] | null {
     return Reflect.getMetadata(AUTOWIRED_METADA_KEY, target.prototype);
 }
 

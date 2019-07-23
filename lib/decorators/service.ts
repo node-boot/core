@@ -1,4 +1,4 @@
-import {Component} from "./component";
+import {Component} from "../context/decorators/component";
 
 const Service = Component;
 
