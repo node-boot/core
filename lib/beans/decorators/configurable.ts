@@ -1,4 +1,4 @@
-import {DecoratorFactoryBuilder} from "ts-decorators-utils/lib/decorator-factory-builder";
+import {DecoratorUtil} from "ts-decorators-utils";
 import {Component} from "../../context/decorators/component";
 
 
@@ -17,8 +17,8 @@ const CONFIGURABLE_METADATA_KEY = Symbol('Configurable');
  * 会使用Component
  * @type {(option: ConfigurableOption) => ClassDecorator}
  */
-const Configurable = DecoratorFactoryBuilder.createClassDecoratorFactory<
-    ConfigurableOption, ConfigurableValue>(((option, target) => {
+const Configurable = DecoratorUtil.makeClassDecorator<ConfigurableOption, ConfigurableValue>(
+    ((option, target) => {
         let componentName;
         let configurableValue = {
             preConstruction: false
@@ -29,10 +29,11 @@ const Configurable = DecoratorFactoryBuilder.createClassDecoratorFactory<
             } else {
                 componentName = option.value;
                 configurableValue = {
-                    preConstruction: option.preConstruction
+                    preConstruction: !!option.preConstruction
                 };
             }
         }
         Component(componentName)(target);
         return configurableValue;
-    }), CONFIGURABLE_METADATA_KEY);
+    }), CONFIGURABLE_METADATA_KEY
+);

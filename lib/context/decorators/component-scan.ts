@@ -1,5 +1,5 @@
-import {Constructor} from "../types/constructor";
-import {DecoratorOptionNullableFactory} from "ts-decorators-utils";
+import {Constructor} from "../../start/types/constructor";
+import {DecoratorUtil} from "ts-decorators-utils";
 
 const COMPONENT_SCAN_METADATA_KEY = Symbol('ComponentScan');
 
@@ -11,8 +11,8 @@ type ComponentScanValue = {
     baseDirectories: string[];
 }
 
-const ComponentScan = DecoratorOptionNullableFactory.createClassDecorator<ComponentScanValue, ComponentScanParam>(
-    COMPONENT_SCAN_METADATA_KEY, (param) => {
+const ComponentScan = DecoratorUtil.makeClassDecorator<ComponentScanParam, ComponentScanValue>(
+    (param) => {
         if (param) {
             let baseDirectories: string[];
             if (param instanceof Array) {
@@ -29,11 +29,11 @@ const ComponentScan = DecoratorOptionNullableFactory.createClassDecorator<Compon
         return {
             baseDirectories: ['']
         }
-    }
+    }, COMPONENT_SCAN_METADATA_KEY
 );
 
 function getComponentScanValue(target: Constructor<any>): ComponentScanValue {
     return Reflect.getMetadata(COMPONENT_SCAN_METADATA_KEY, target);
 }
 
-export {ComponentScan, ComponentScanValue, getComponentScanValue};
+export {ComponentScan, ComponentScanValue, getComponentScanValue, ComponentScanParam};

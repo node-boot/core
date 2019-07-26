@@ -4,7 +4,7 @@ import * as yml from 'yamljs';
 import {EventEmitter} from 'events';
 import {ServiceParser} from "./parser";
 import {Constructor} from "./types/constructor";
-import {getComponentScanValue} from "./decorators/component-scan";
+import {getComponentScanValue} from "../context/decorators/component-scan";
 
 
 let fileDirPath = '';

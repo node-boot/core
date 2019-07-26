@@ -1,4 +1,4 @@
-import {Configuration} from "../context/decorators/configuration";
+import {Configuration} from "../../context/decorators/configuration";
 
 
 const NodeBootConfiguration = Configuration;

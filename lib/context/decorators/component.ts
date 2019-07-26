@@ -1,6 +1,7 @@
-import {Constructor} from "../../types/constructor";
-import {getBeanName} from "../../utils/bean-util";
-import {DecoratorFactoryBuilder} from "ts-decorators-utils/lib/decorator-factory-builder";
+import {Constructor} from "../../start/types/constructor";
+import {getBeanName} from "../../start/utils/bean-util";
+import {DecoratorUtil} from "ts-decorators-utils";
+import 'reflect-metadata';
 
 const COMPONENT_METADATA_KEY = Symbol('Component');
 
@@ -11,15 +12,15 @@ type ComponentValue = {
     providers: Constructor[];
 }
 
-const componentTypes = [];
+const componentTypes: Function[] = [];
 
-const Component = DecoratorFactoryBuilder.createClassDecoratorFactory<ComponentOption, ComponentValue>(
+const Component = DecoratorUtil.makeClassDecorator<ComponentOption, ComponentValue>(
     (option, target) => {
         if (componentTypes.includes(target)) {
             throw '相同的名字被定义';
         }
         componentTypes.push(target);
-        const providers: Constructor[] = Reflect.getMetadata('design:paramtypes', target);
+        const providers: Constructor[] = Reflect.getMetadata('design:paramtypes', target) || [];
         if (option) {
             return {
                 value: option,
@@ -32,8 +33,8 @@ const Component = DecoratorFactoryBuilder.createClassDecoratorFactory<ComponentO
         };
     }, COMPONENT_METADATA_KEY);
 
-function getComponentValue(target: any): ComponentValue | null {
-    return Reflect.getMetadata(COMPONENT_METADATA_KEY, target.prototype);
+function getComponentValue(target: Function): ComponentValue | null {
+    return Reflect.getMetadata(COMPONENT_METADATA_KEY, target);
 }
 
 function getComponentTypes() {

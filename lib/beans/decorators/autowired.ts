@@ -1,4 +1,5 @@
-import {DecoratorFactoryBuilder} from "ts-decorators-utils/lib/decorator-factory-builder";
+import {DecoratorUtil} from "ts-decorators-utils";
+
 
 const AUTOWIRED_METADA_KEY = Symbol('Autowired');
 
@@ -13,12 +14,13 @@ type AutowiredValueItem = {
     propertyKey: string | symbol;
 }
 
-const Autowired = DecoratorFactoryBuilder.createPropertyDecoratorFactory<AutowiredOption, AutowiredValueItem>(
+
+const Autowired = DecoratorUtil.makePropertyDecorator<AutowiredOption, AutowiredValueItem>(
     (option, target, propertyKey) => {
         if (typeof option === 'object') {
             return {
                 type: option.type,
-                required: option.required,
+                required: !!option.required,
                 propertyKey
             };
         }
