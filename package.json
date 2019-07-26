@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "reflect-metadata": "^0.1.13",
-    "ts-decorators-utils": "0.2.1",
+    "ts-decorators-utils": "0.2.2",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
