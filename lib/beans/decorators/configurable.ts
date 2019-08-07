@@ -1,4 +1,4 @@
-import {DecoratorUtil} from "ts-decorators-utils";
+import {DecoratorFactoryBuilder, DecoratorUtil} from "ts-decorators-utils";
 import {Component} from "../../context/decorators/component";
 
 
@@ -17,7 +17,15 @@ const CONFIGURABLE_METADATA_KEY = Symbol('Configurable');
  * 会使用Component
  * @type {(option: ConfigurableOption) => ClassDecorator}
  */
-const Configurable = DecoratorUtil.makeClassDecorator<ConfigurableOption, ConfigurableValue>(
+const Configurable = DecoratorFactoryBuilder.create<ConfigurableValue>()
+    .class<ConfigurableOption>(option => ({
+        preConstruction: typeof option === 'boolean' ? option : (option ? option.preConstruction : true)
+    })).build();
+
+
+
+
+DecoratorUtil.makeClassDecorator<ConfigurableOption, ConfigurableValue>(
     ((option, target) => {
         let componentName;
         let configurableValue = {

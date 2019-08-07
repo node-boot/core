@@ -5,15 +5,15 @@ import {ComponentValue, getComponentValue} from "../context/decorators/component
 
 export class BeanFactory {
 
-    static beanMapByType = new Map<Constructor<any>, any>();
-    static beanMapByName = new Map<string, any>();
+    public static beanMapByType = new Map<Constructor<any>, any>();
+    public static beanMapByName = new Map<string, any>();
 
     /**
      * 创建实例
      * @param {Constructor<T>} type
      * @return {T}
      */
-    static create<T>(type: Constructor<T>): T | null {
+    public static create<T>(type: Constructor<T>): T | undefined {
         if (this.beanMapByType.has(type)) {
             return this.beanMapByType.get(type);
         }
@@ -39,6 +39,6 @@ export class BeanFactory {
             this.beanMapByName.set(componentValue.value, result);
             return result;
         }
-        return null;
+        return undefined;
     }
 }

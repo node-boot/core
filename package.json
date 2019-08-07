@@ -6,12 +6,12 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "start": "tsc && ts-node ./src/demo.ts --node.config.name=app",
-    "ta": "tsc && npm config set scope node-mvc-decorator && npm publish --access public",
-    "build": "tsc && npm link"
+    "release": "tsc && npm config set scope node-mvc-decorator && npm publish --access public",
+    "build": "tsc"
   },
   "dependencies": {
     "reflect-metadata": "^0.1.13",
-    "ts-decorators-utils": "0.2.2",
+    "ts-decorators-utils": "0.3.6",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
