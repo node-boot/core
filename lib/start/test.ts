@@ -28,11 +28,14 @@ function directoryScanForImportFile(scanDirPath: string) {
 }
 
 
-function componentScan(scanDir = '') {
-
+export function componentScan(scanDir = '') {
     const mainFile = process.argv[1];
-    const index = mainFile.lastIndexOf('\\');
+    const index = mainFile.lastIndexOf('/');
+    console.log(mainFile);
+    console.log(index);
+    console.log(mainFile.slice(1, -2));
     mainFileName = mainFile.slice(index + 1, -1);
+    console.log(mainFileName);
     const mainFileDir = mainFile.slice(0, index);
 
     const scanDirPath = path.join(mainFileDir, scanDir);
