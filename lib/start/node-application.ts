@@ -8,6 +8,8 @@ import {Constructor} from "ts-decorators-utils/dist/lib/bean/constructor";
 import {DecoratorUtil} from "ts-decorators-utils";
 import {Component} from "../context/decorators/component";
 import {componentScan} from "./test";
+import {Configurable} from "../beans/decorators/configurable";
+import {Test2} from "../../src/test/test2";
 
 
 let fileDirPath = '';
@@ -30,7 +32,8 @@ function run(type: Constructor) {
         const index = filePath.lastIndexOf('/');
         if (index) {
             fileDirPath = filePath.substring(0, index);
-            fileName = filePath.slice(index + 1, -1);
+            fileName = filePath.slice(index + 1, filePath.length);
+            console.log(fileName);
         } else {
             fileName = filePath;
         }

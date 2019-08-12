@@ -11,13 +11,11 @@ type ConfigurableValue = {
     preConstruction: boolean;
 }
 
-const CONFIGURABLE_METADATA_KEY = Symbol('Configurable');
-
 /**
  * 会使用Component
  * @type {(option: ConfigurableOption) => ClassDecorator}
  */
-const Configurable = DecoratorFactoryBuilder.create<ConfigurableValue>()
+export const Configurable = DecoratorFactoryBuilder.create<ConfigurableValue>()
     .class<ConfigurableOption>(option => ({
         preConstruction: typeof option === 'boolean' ? option : (option ? option.preConstruction : true)
     })).build();

@@ -19,9 +19,7 @@ function directoryScanForImportFile(scanDirPath: string) {
             if (isTsFile(name) && name !== mainFileName) {
                 console.log(filePath);
                 require(filePath);
-                return;
-            }
-            if (fs.lstatSync(filePath).isDirectory()) {
+            } else if (fs.lstatSync(filePath).isDirectory()) {
                 directoryScanForImportFile(filePath);
             }
         });
@@ -31,11 +29,7 @@ function directoryScanForImportFile(scanDirPath: string) {
 export function componentScan(scanDir = '') {
     const mainFile = process.argv[1];
     const index = mainFile.lastIndexOf('/');
-    console.log(mainFile);
-    console.log(index);
-    console.log(mainFile.slice(1, -2));
-    mainFileName = mainFile.slice(index + 1, -1);
-    console.log(mainFileName);
+    mainFileName = mainFile.slice(index + 1, mainFile.length);
     const mainFileDir = mainFile.slice(0, index);
 
     const scanDirPath = path.join(mainFileDir, scanDir);
