@@ -4,14 +4,12 @@ import {Component} from "../../context/decorators/component";
 
 type ConfigurableOption = {
     value?: string;
-    preConstruction?: boolean;
-} | string | void;
+    preConstruction: boolean;
+} | boolean | void;
 
 type ConfigurableValue = {
     preConstruction: boolean;
 }
-
-const CONFIGURABLE_METADATA_KEY = Symbol('Configurable');
 
 /**
  * 会使用Component
@@ -22,26 +20,3 @@ const Configurable = DecoratorFactoryBuilder.create<ConfigurableValue>()
         preConstruction: typeof option === 'boolean' ? option : (option ? option.preConstruction : true)
     })).build();
 
-
-
-
-DecoratorUtil.makeClassDecorator<ConfigurableOption, ConfigurableValue>(
-    ((option, target) => {
-        let componentName;
-        let configurableValue = {
-            preConstruction: false
-        };
-        if (option) {
-            if (typeof option === 'string') {
-                componentName = option;
-            } else {
-                componentName = option.value;
-                configurableValue = {
-                    preConstruction: !!option.preConstruction
-                };
-            }
-        }
-        Component(componentName)(target);
-        return configurableValue;
-    }), CONFIGURABLE_METADATA_KEY
-);

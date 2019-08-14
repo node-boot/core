@@ -1,7 +1,4 @@
-import {Constructor} from "../../start/types/constructor";
-import {DecoratorUtil} from "ts-decorators-utils";
-
-const COMPONENT_SCAN_METADATA_KEY = Symbol('ComponentScan');
+import {DecoratorFactoryBuilder} from "ts-decorators-utils";
 
 type ComponentScanParam = {
     baseDirectories: string[];
@@ -11,14 +8,14 @@ type ComponentScanValue = {
     baseDirectories: string[];
 }
 
-const ComponentScan = DecoratorUtil.makeClassDecorator<ComponentScanParam, ComponentScanValue>(
-    (param) => {
-        if (param) {
+const ComponentScan = DecoratorFactoryBuilder.create<ComponentScanValue>()
+    .class<ComponentScanParam>(option => {
+        if (option) {
             let baseDirectories: string[];
-            if (param instanceof Array) {
-                baseDirectories = param;
+            if (option instanceof Array) {
+                baseDirectories = option;
             } else {
-                baseDirectories = param.baseDirectories;
+                baseDirectories = option.baseDirectories;
             }
             if (baseDirectories.length > 0) {
                 return {
@@ -29,11 +26,6 @@ const ComponentScan = DecoratorUtil.makeClassDecorator<ComponentScanParam, Compo
         return {
             baseDirectories: ['']
         }
-    }, COMPONENT_SCAN_METADATA_KEY
-);
+    }).build();
 
-function getComponentScanValue(target: Constructor<any>): ComponentScanValue {
-    return Reflect.getMetadata(COMPONENT_SCAN_METADATA_KEY, target);
-}
-
-export {ComponentScan, ComponentScanValue, getComponentScanValue, ComponentScanParam};
+export {ComponentScan, ComponentScanValue, ComponentScanParam};

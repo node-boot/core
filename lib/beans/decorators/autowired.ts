@@ -12,8 +12,7 @@ type AutowiredValue = {
     required: boolean;
 }
 
-const Autowired = DecoratorFactoryBuilder
-    .create<AutowiredValue>()
+const Autowired = DecoratorFactoryBuilder.create<AutowiredValue>()
     .property<AutowiredOption>(option => ({
         required: typeof option === 'boolean' ? option : (option ? option.required : true)
     })).build();

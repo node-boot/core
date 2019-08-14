@@ -1,13 +1,9 @@
 import {Component} from "./component";
-import {DecoratorUtil} from "ts-decorators-utils";
-
-const AUTOWIRED_METADATA_KEY = Symbol('Autowired');
+import {DecoratorFactoryBuilder} from "ts-decorators-utils";
 
 type ConfigurationOption = string | void;
 
-
-const Configuration = DecoratorUtil.makeClassDecorator<ConfigurationOption>(
-    (option, target) => Component(option)(target), AUTOWIRED_METADATA_KEY);
-
+const Configuration = DecoratorFactoryBuilder.create()
+    .class<ConfigurationOption>((option, target) => Component(option)(target)).build();
 
 export {ConfigurationOption, Configuration};

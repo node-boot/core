@@ -1,5 +1,5 @@
 
-import {DecoratorUtil} from "ts-decorators-utils";
+import {DecoratorFactoryBuilder, DecoratorUtil} from "ts-decorators-utils";
 import {ComponentScan, ComponentScanParam} from "../../context/decorators/component-scan";
 import {NodeBootConfiguration} from "./node-boot-configuration";
 
@@ -10,8 +10,8 @@ type NodeBootApplicationOption = {
 /**
  * 使用ComponentScan, NodeBootConfiguration
  */
-export const NodeBootApplication = DecoratorUtil.makeClassDecorator<NodeBootApplicationOption>(
-    (option, target) => {
+export const NodeBootApplication = DecoratorFactoryBuilder.create()
+    .class<NodeBootApplicationOption>((option, target) => {
         let scanBaseDirectories: string[] = [];
         if (option) {
             if (option instanceof Array) {
@@ -22,7 +22,7 @@ export const NodeBootApplication = DecoratorUtil.makeClassDecorator<NodeBootAppl
         }
         ComponentScan(scanBaseDirectories)(target);
         NodeBootConfiguration()(target);
-    });
+    }).build();
 
 
 
