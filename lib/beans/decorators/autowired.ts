@@ -22,4 +22,4 @@ function getAutowiredValue(target: Function): AutowiredValue[] | null {
 }
 
 
-export {Autowired, getAutowiredValue};
+export {Autowired, AutowiredValue, getAutowiredValue};

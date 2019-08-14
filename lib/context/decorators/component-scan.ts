@@ -1,6 +1,6 @@
 import {DecoratorFactoryBuilder} from "ts-decorators-utils";
 
-type ComponentScanParam = {
+type ComponentScanOption = {
     baseDirectories: string[];
 } | string[];
 
@@ -9,7 +9,7 @@ type ComponentScanValue = {
 }
 
 const ComponentScan = DecoratorFactoryBuilder.create<ComponentScanValue>()
-    .class<ComponentScanParam>(option => {
+    .class<ComponentScanOption>(option => {
         if (option) {
             let baseDirectories: string[];
             if (option instanceof Array) {
@@ -28,4 +28,4 @@ const ComponentScan = DecoratorFactoryBuilder.create<ComponentScanValue>()
         }
     }).build();
 
-export {ComponentScan, ComponentScanValue, ComponentScanParam};
+export {ComponentScan, ComponentScanValue, ComponentScanOption};

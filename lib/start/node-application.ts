@@ -3,8 +3,13 @@ import * as fs from 'fs';
 import * as yml from 'yamljs';
 import {EventEmitter} from 'events';
 import {ServiceParser} from "./parser";
-import {Constructor} from "./types/constructor";
-import {getComponentScanValue} from "../context/decorators/component-scan";
+import {ComponentScan, getComponentScanValue} from "../context/decorators/component-scan";
+import {Constructor} from "ts-decorators-utils/dist/lib/bean/constructor";
+import {DecoratorUtil} from "ts-decorators-utils";
+import {Component} from "../context/decorators/component";
+import {componentScan} from "./test";
+import {Configurable} from "../beans/decorators/configurable";
+import {Test2} from "../../src/test/test2";
 
 
 let fileDirPath = '';
@@ -12,10 +17,10 @@ let fileDirPath = '';
 const optionsEmitter = new EventEmitter();
 
 export class NodeApplication {
-    static run(type: Constructor<any>) {
-        let componentScanValue = getComponentScanValue(type);
-
-        componentScanValue.baseDirectories;
+    public static run(target: Function) {
+        const componentScanValue = DecoratorUtil.getMetadata(ComponentScan, target);
+        console.log(componentScanValue);
+        componentScan();
     }
 }
 
@@ -27,7 +32,8 @@ function run(type: Constructor) {
         const index = filePath.lastIndexOf('/');
         if (index) {
             fileDirPath = filePath.substring(0, index);
-            fileName = filePath.slice(index + 1, -1);
+            fileName = filePath.slice(index + 1, filePath.length);
+            console.log(fileName);
         } else {
             fileName = filePath;
         }
