@@ -1,7 +1,7 @@
 {
   "rules": {
     // TS特性
-    "member-access": true, // 设置成员对象的访问权限（public,private,protect)
+//    "member-access": true, // 设置成员对象的访问权限（public,private,protect)
     "member-ordering": [// 设置修饰符顺序
       true,
       {
@@ -72,7 +72,7 @@
     "comment-format":[true, "check-space"],// 定义注释格式
     "encoding":true,// 定义编码格式默认utf-8
     "import-spacing":true,// import关键字后加空格
-    "interface-name":[true,"always-prefix"],// interface必须以I开头
+    "interface-name":[true, "never-prefix"],// ! interface必须以I开头
     "jsdoc-format":true,// 注释基于jsdoc风格
     "new-parens":true,// 调用构造函数时需要用括号
     "no-consecutive-blank-lines":[true,2],// 不允许有空行
