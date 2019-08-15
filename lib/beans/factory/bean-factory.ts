@@ -1,8 +1,9 @@
 import {Class} from "../../core/class";
-import {AttributeAccessor} from "../../core/attribute-accessor";
-import {BeanMetadataElement} from "../bean-metadata-element";
 
-export interface BeanFactory extends AttributeAccessor, BeanMetadataElement {
+export namespace BeanFactory {
+    export const FACTORY_BEAN_PREFIX = '&';
+}
+export interface BeanFactory {
     getBean<T>(name: string, requiredType: Class<T>): T;
     getBean(name: string): object;
     getBean<T>(requiredType: Class<T>): T;

@@ -3,13 +3,10 @@ import * as fs from 'fs';
 import * as yml from 'yamljs';
 import {EventEmitter} from 'events';
 import {ServiceParser} from "./parser";
-import {ComponentScan, getComponentScanValue} from "../context/decorators/component-scan";
+import {ComponentScan} from "../context/decorators/component-scan";
 import {Constructor} from "ts-decorators-utils/dist/lib/bean/constructor";
 import {DecoratorUtil} from "ts-decorators-utils";
-import {Component} from "../context/decorators/component";
 import {componentScan} from "./test";
-import {Configurable} from "../beans/decorators/configurable";
-import {Test2} from "../../src/test/test2";
 
 
 let fileDirPath = '';
@@ -20,6 +17,7 @@ export class NodeApplication {
     public static run(target: Function) {
         const componentScanValue = DecoratorUtil.getMetadata(ComponentScan, target);
         console.log(componentScanValue);
+
         componentScan();
     }
 }

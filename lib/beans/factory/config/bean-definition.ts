@@ -1,7 +1,20 @@
 import {ConstructorArgumentValues} from "./constructor-argument-values";
 import {MutablePropertyValues} from "../../mutable-property-values";
+import {AttributeAccessor} from "../../../core/attribute-accessor";
+import {BeanMetadataElement} from "../../bean-metadata-element";
+import {ConfigurableBeanFactory} from "./configurable-bean-factory";
 
-export interface BeanDefinition {
+export namespace BeanDefinition {
+    export const SCOPE_SINGLETON = ConfigurableBeanFactory.SCOPE_SINGLETON;
+    export const SCOPE_PROTOTYPE = ConfigurableBeanFactory.SCOPE_PROTOTYPE;
+    // 通常对应于用户定义的bean
+    export const ROLE_APPLICATION = 0;
+    export const ROLE_SUPPORT = 1;
+    export const ROLE_INFRASTRUCTURE = 2;
+
+}
+
+export interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
     getParentName();
     setParentName(parentName: string): string;
     getBeanClassName(): string;
